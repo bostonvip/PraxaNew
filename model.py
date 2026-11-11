@@ -1,8 +1,11 @@
 from langchain_community.chat_models import ChatOpenAI
 from typing import Optional, Any
+from pathlib import Path
+from dotenv import dotenv_values
 import os
 
-os.environ["OPENROUTER_API_KEY"] = "<your key here>"
+_ENV_PATH = Path(__file__).with_name(".env")
+_KEY_PLACEHOLDER = "your_openrouter_api_key_here"
 
 class ChatModel(ChatOpenAI):
     """
@@ -14,7 +17,13 @@ class ChatModel(ChatOpenAI):
             openai_api_key: Optional[str] = None,
             openai_api_base: str="https://openrouter.ai/api/v1",
             **kwargs: Any):
-        openai_api_key = openai_api_key or os.getenv('OPENROUTER_API_KEY')
+        openai_api_key = (
+            openai_api_key
+            or os.getenv("OPENROUTER_API_KEY")
+            or dotenv_values(_ENV_PATH).get("OPENROUTER_API_KEY")
+        )
+        if not openai_api_key or openai_api_key == _KEY_PLACEHOLDER:
+            raise ValueError("Set OPENROUTER_API_KEY in .env or the environment before creating a model.")
         super().__init__(
             openai_api_base=openai_api_base,
             openai_api_key=openai_api_key,
