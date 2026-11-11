@@ -55,16 +55,16 @@ if __name__ == "__main__":
 #        print("-----")
 #        print(doc)
 
-#    print(question_and_docs.invoke("What is Ryan Calais Cameron's most recent play?"))
+    print(question_and_docs.invoke("What is Ryan Calais Cameron's most recent play?"))
 
-#    my_dict = {
-#        "question": "How much wood would a woodchuck chuck if a woodchuck could chuck wood?",
-#        "answer": "All the wood that a woodchuck could chuck if a woodchuck could chuck wood."
-#    }
+    my_dict = {
+       "question": "How much wood would a woodchuck chuck if a woodchuck could chuck wood?",
+       "answer": "All the wood that a woodchuck could chuck if a woodchuck could chuck wood."
+   }
 
-#    add_length = RunnablePassthrough.assign(length=len)
-#    print(type(add_length))
-#    print(add_length.invoke(my_dict))
+    add_length = RunnablePassthrough.assign(length=len)
+    print(type(add_length))
+    print(add_length.invoke(my_dict))
 
 #    complete_prompt_chain = question_and_docs | context | prompt_template
 #    result = complete_prompt_chain.invoke("What is Ryan Calais Cameron's most recent play?")
